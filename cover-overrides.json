@@ -1,0 +1,50 @@
+{
+  "_instructions": "Replace empty strings with Wookieepedia cover URLs. See WOOKIEEPEDIA-COVERS.md for detailed instructions.",
+  "_example": {
+    "book-id-here": "https://static.wikia.nocookie.net/starwars/images/.../Cover.jpg"
+  },
+  "legends": {
+    "dawn-of-the-jedi-into-the-void": "https://static.wikia.nocookie.net/starwars/images/6/6b/DawnoftheJedi-IntotheVoid-Hardcover.jpg/revision/latest/scale-to-width-down/1000?cb=20130125030653",
+    "force-heretic-i-remnant": "",
+    "agents-of-chaos-ii-jedi-eclipse": "",
+    "jedi-trial": "",
+    "star-wars-the-clone-wars-movie-novelization": "",
+    "the-clone-wars-wild-space": "",
+    "republic-commando-hard-contact": "",
+    "republic-commando-triple-zero": "",
+    "the-clone-wars-gambit-siege": "",
+    "republic-commando-true-colors": "",
+    "order-66-a-republic-commando-novel": "",
+    "poe-dameron-free-fall": "",
+    "the-new-rebellion": "",
+    "the-crystal-star": "",
+    "armor": "",
+    "thonboka": "",
+    "han-solo-and-the-lost-legacy": "",
+    "galaxies-the-ruins-of-dantooine": "",
+    "choices-of-one": "",
+    "lucas-ghost-written": "",
+    "cantina": ""
+  },
+  "canon": {
+    "the-eye-of-darkness": "",
+    "light-of-the-jedi": "",
+    "temptation-of-the-force": "",
+    "the-acolyte-the-crystal-crown": "",
+    "padawan": "",
+    "phasma": "",
+    "canto-bight": "",
+    "episode-viii-the-last-jedi-expanded-edition-novel": "",
+    "resistance-reborn": "",
+    "episode-ix-the-rise-of-skywalker-expanded-edition-": "",
+    "mace-windu-the-glass-abyss": "",
+    "solo-expanded-edition-movie-novelization": "",
+    "thrawn-ascendancy-greater-good": "",
+    "tarkin": "",
+    "fall-2026-reign-of-the-empire-edge-of-the-abyss": "",
+    "summer-2027-reign-of-the-empire-from-the-ashes": "",
+    "aftermath-life-debt": "",
+    "lost-stars": "",
+    "from-a-certain-point-of-view-return-of-the-jedi": ""
+  }
+}

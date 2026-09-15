@@ -1,0 +1,108 @@
+// Script to read CSV and update novels.ts with release dates
+import fs from 'fs';
+
+function parseCSV(csvText: string): Record<string, string> {
+  const lines = csvText.split('\n');
+  const rows = lines.slice(1).filter(line => line.trim());
+
+  const updates: Record<string, string> = {};
+
+  rows.forEach(line => {
+    // Simple CSV parsing (handles quoted fields)
+    const parts: string[] = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        parts.push(current);
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    parts.push(current); // Add last field
+
+    if (parts.length >= 5) {
+      const [timeline, id, title, author, releaseDate] = parts;
+
+      if (releaseDate && releaseDate.trim()) {
+        updates[id.trim()] = releaseDate.trim().replace(/^"|"$/g, ''); // Remove surrounding quotes
+      }
+    }
+  });
+
+  return updates;
+}
+
+function updateNovelsFile() {
+  // Read CSV
+  if (!fs.existsSync('books-release-dates.csv')) {
+    console.error('❌ books-release-dates.csv not found!');
+    console.log('Run: pnpm exec tsx scripts/export-books-for-release-dates.ts first');
+    process.exit(1);
+  }
+
+  const csvContent = fs.readFileSync('books-release-dates.csv', 'utf-8');
+  const updates = parseCSV(csvContent);
+
+  console.log(`📝 Found ${Object.keys(updates).length} release dates to update`);
+
+  // Read novels.ts
+  let novelsContent = fs.readFileSync('src/app/data/novels.ts', 'utf-8');
+
+  let updateCount = 0;
+
+  // For each update, find the book object and add/update releaseDate
+  Object.entries(updates).forEach(([id, releaseDate]) => {
+    // Escape special characters for JavaScript string
+    const escapedDate = releaseDate
+      .replace(/\\/g, '\\\\')
+      .replace(/'/g, "\\'");
+
+    // Match the book object by ID
+    const idPattern = new RegExp(`(\\{[^}]*id:\\s*['"]${id}['"][^}]*)(\\})`, 's');
+
+    novelsContent = novelsContent.replace(idPattern, (match, before, after) => {
+      // Check if releaseDate already exists
+      if (before.includes('releaseDate:')) {
+        // Update existing releaseDate
+        const updated = before.replace(
+          /releaseDate:\s*['"][^'"]*['"]/,
+          `releaseDate: '${escapedDate}'`
+        );
+        updateCount++;
+        return updated + after;
+      } else {
+        // Add new releaseDate before the closing brace
+        const lines = before.split('\n');
+        const lastLineIndex = lines.length - 1;
+        lines[lastLineIndex] = lines[lastLineIndex].trimEnd();
+
+        // Add comma if needed
+        if (!lines[lastLineIndex].endsWith(',')) {
+          lines[lastLineIndex] += ',';
+        }
+
+        // Add releaseDate
+        const indent = lines[lastLineIndex].match(/^\s*/)?.[0] || '';
+        lines.push(`${indent}releaseDate: '${escapedDate}'`);
+
+        updateCount++;
+        return lines.join('\n') + after;
+      }
+    });
+  });
+
+  // Write back to file
+  fs.writeFileSync('src/app/data/novels.ts', novelsContent);
+
+  console.log(`✅ Updated ${updateCount} release dates in src/app/data/novels.ts`);
+  console.log('🎉 Done! Your book release dates are now in the code.');
+}
+
+updateNovelsFile();

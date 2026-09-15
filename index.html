@@ -1,0 +1,95 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" id="silktide-consent-manager-css" href="https://cdn.jsdelivr.net/gh/silktide/consent-manager@v2.0.0/silktide-consent-manager.css" integrity="sha384-IO1E/jCrQXyH5rwcI0SXP7OXw47JFqQNDQcKhbFvqnL2IunBxxwE2Ne5XyAmCqKs" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/silktide/consent-manager@v2.0.0/silktide-consent-manager.js" integrity="sha384-j4NIMOecmtzMWe9GJADIIe5hTlHG63aiTQ/2XorW10RNyQJg+IU+xwFVDy45wBah" crossorigin="anonymous"></script>
+<script>
+window.silktideConsentManager.init({
+  backdrop: {
+    show: true
+  },
+  icon: {
+    position: "bottomLeft"
+  },
+  prompt: {
+    position: "bottomRight"
+  },
+  consentTypes: [
+    {
+      id: "essential",
+      label: "Essential",
+      description: "<p>These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>",
+      required: true,
+      onAccept: function() {
+        console.log('Add logic for the required Essential consent type here');
+      }
+    },
+    {
+      id: "analytics",
+      label: "Analytics",
+      description: "<p>These cookies help us improve the site by tracking which pages are most popular and how visitors move around the site.</p>",
+      required: false,
+      gtag: "analytics_storage",
+      scripts: [
+        {
+          url: "https://www.googletagmanager.com/gtag/js?id=G-1QP4Y6L0PD",
+          load: "async"
+        }
+      ],
+      onAccept: function() {
+        // Google Analytics 4 (G-1QP4Y6L0PD)
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1QP4Y6L0PD');
+      }
+    }
+  ],
+  text: {
+    prompt: {
+      description: "<p>We use cookies on our site to enhance your user experience, provide personalized content, and analyze our traffic.</p>",
+      acceptAllButtonText: "Accept all",
+      acceptAllButtonAccessibleLabel: "Accept all cookies",
+      rejectNonEssentialButtonText: "Reject non-essential",
+      rejectNonEssentialButtonAccessibleLabel: "Reject all non-essential cookies",
+      preferencesButtonText: "Preferences",
+      preferencesButtonAccessibleLabel: "Toggle preferences"
+    },
+    preferences: {
+      title: "Customize your cookie preferences",
+      description: "<p>We respect your right to privacy. You can choose not to allow some types of cookies. Your cookie preferences will apply across our website.</p>",
+      saveButtonText: "Save and close",
+      saveButtonAccessibleLabel: "Save your cookie preferences",
+      creditLinkText: "Get this banner for free",
+      creditLinkAccessibleLabel: "Get this banner for free"
+    }
+  }
+});
+</script>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Galactic Timeline</title>
+      <meta name="description" content="Explore an extensive collection of Star Wars novels categorized into Legends and Canon, complete with release dates, covers, and author details." />
+      
+      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1QP4Y6L0PD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1QP4Y6L0PD');
+</script>
+    </head>
+
+    <body>
+      
+      <div id="root"></div>
+      <script type="module" src="/src/main.tsx"></script>
+      
+    </body>
+  </html>
+  
