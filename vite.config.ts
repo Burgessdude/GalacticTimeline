@@ -16,7 +16,7 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  base: './', // Fixes absolute asset paths for GitHub Pages
+  base: '/', // Fixes absolute asset paths for GitHub Pages
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
